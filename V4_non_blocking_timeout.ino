@@ -1,4 +1,4 @@
-// Smart Fan Control System - ER4006 Coursework
+// Smart Fan Control System 
 // PIN Definitions 
 const int mtrEble = 6;
 const int mtrIn3 = 3;
