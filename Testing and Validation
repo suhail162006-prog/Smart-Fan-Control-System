@@ -1,11 +1,3 @@
-### Testing and Verification
-
-All functional requirements were tested using simulation. The 12 V power source was verified using a multimeter. The 1N4007 reverse-polarity protection diode produced a measured voltage drop, reducing the motor supply from 12 V to approximately 11.7 V, without affecting motor or logic performance during testing.
-
-The temperature thresholds triggering transitions between motor speeds were clearly defined and operated correctly. The motor speeds corresponding to PWM values of 64, 128 and 255 were distinguishable and correctly associated with the temperature ranges of 10–25 °C, 25–30 °C and above 30 °C, respectively.
-
-Below 10 °C, the fan correctly remained off despite motion being detected. The green LED operated correctly in all fan-on states, while the red LED operated correctly in all fan-off states.
-
-The `millis()`-based timeout function consistently maintained the fan's ON state for 15 seconds after motion was no longer detected. If motion was detected again during this period, the timer was reset and the fan returned to the appropriate operating state based on the measured temperature.
-
-Overall, the system performed as expected under all tested conditions. The control logic, power-supply design and circuit behaviour were consistent with the functional specification outlined in the project brief.
+All functional requirements were tested using simulation. The 12V power source was checked using a multimeter. The reverse polarity 1N4007 diode drops the power supply to 11.7V and did not affect the performance of the motor and logic during testing.
+The temperatures that trigger transitions between different motor speeds are sharply defined and correct. The motor speeds at PWM = 64, 128 and 255 can be easily distinguished and related to the temperatures 10-25°C,25-30°C and >30°C. Below 10°C the fan correctly remained off despite the motion being detected. The green LED worked perfectly in all fan-on states and the red LED in all the fan-off states. The millis() timeout function consistently delays the ON state of the fan after motion is lost during its 15-second countdown. Whenever motion is detected again, the timer gets reset and the motor (fan) switches back on if the temperature is within the ON range. 
+In summary, the system performed as expected under all test conditions and all control logic, power supply design and circuit behaviour matched the specification outlined in the brief 
