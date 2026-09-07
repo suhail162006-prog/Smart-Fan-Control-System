@@ -1,3 +1,9 @@
-All functional requirements were tested using simulation. The 12V power source was checked using a multimeter. The reverse polarity 1N4007 diode drops the power supply to 11.7V and did not affect the performance of the motor and logic during testing.
-The temperatures that trigger transitions between different motor speeds are sharply defined and correct. The motor speeds at PWM = 64, 128 and 255 can be easily distinguished and related to the temperatures 10-25°C,25-30°C and >30°C. Below 10°C the fan correctly remained off despite the motion being detected. The green LED worked perfectly in all fan-on states and the red LED in all the fan-off states. The millis() timeout function consistently delays the ON state of the fan after motion is lost during its 15-second countdown. Whenever motion is detected again, the timer gets reset and the motor (fan) switches back on if the temperature is within the ON range. 
-In summary, the system performed as expected under all test conditions and all control logic, power supply design and circuit behaviour matched the specification outlined in the brief 
+All functional requirements were tested using simulation. The 12V power source was checked using a multimeter. 
+The reverse-polarity 1N4007 diode drops the power supply to 11.7V and did not affect the performance of the motor and logic during testing.
+The temperatures that trigger transitions between different motor speeds are sharply defined and correct. 
+The motor speeds at PWM = 64, 128 and 255 can be easily distinguished and related to the temperatures 10-25°C, 25- 30 °C, and >30°C. 
+Below 10°C the fan correctly remained off despite the motion being detected. 
+The green LED worked perfectly in all fan-on states and the red LED in all the fan-off states. 
+The millis() timeout function consistently delays the ON state of the fan after motion is lost during its 15-second countdown. 
+Whenever motion is detected again, the timer gets reset, and the motor (fan) switches back on if the temperature is within the ON range. 
+In summary, the system performed as expected under all test conditions, and the control logic, power supply design, and circuit behaviour matched the objective and expected results.
