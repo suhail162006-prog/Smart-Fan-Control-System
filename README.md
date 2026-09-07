@@ -56,7 +56,7 @@ The system uses a temperature-dependent state machine combined with a non-blocki
 
 When motion is no longer detected, the system maintains the current active state for **15 seconds** using the Arduino `millis()` timer.
 
-* No blocking `delay()` is used during timeout handling.
+*Non-blocking 15-second timeout implemented using Arduino millis() timing, allowing the timeout to be monitored without a blocking 15- second dely
 * The main control loop continues executing while the timer is monitored.
 * Detecting motion again immediately resets the timeout counter.
 * After 15 seconds without motion, the fan returns to **Standby / OFF**.
