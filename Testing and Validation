@@ -1,0 +1,11 @@
+### Testing and Verification
+
+All functional requirements were tested using simulation. The 12 V power source was verified using a multimeter. The 1N4007 reverse-polarity protection diode produced a measured voltage drop, reducing the motor supply from 12 V to approximately 11.7 V, without affecting motor or logic performance during testing.
+
+The temperature thresholds triggering transitions between motor speeds were clearly defined and operated correctly. The motor speeds corresponding to PWM values of 64, 128 and 255 were distinguishable and correctly associated with the temperature ranges of 10–25 °C, 25–30 °C and above 30 °C, respectively.
+
+Below 10 °C, the fan correctly remained off despite motion being detected. The green LED operated correctly in all fan-on states, while the red LED operated correctly in all fan-off states.
+
+The `millis()`-based timeout function consistently maintained the fan's ON state for 15 seconds after motion was no longer detected. If motion was detected again during this period, the timer was reset and the fan returned to the appropriate operating state based on the measured temperature.
+
+Overall, the system performed as expected under all tested conditions. The control logic, power-supply design and circuit behaviour were consistent with the functional specification outlined in the project brief.
