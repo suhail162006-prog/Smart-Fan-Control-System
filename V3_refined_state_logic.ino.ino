@@ -1,0 +1,99 @@
+// Smart Fan Control System - ER4006 Coursework
+// PIN Definitions 
+const int mtrEble = 6;
+const int mtrIn3 = 3;
+const int mtrIn4 = 4;
+const int PIRsig = 5;
+const int tmpPin = A0;
+const int ledGrn = 8;
+const int ledRed = 2;
+const float SPEED_L = 63.75; //LOW
+const float SPEED_M = 127.5; //MEDIUM
+const float SPEED_H = 255; //HIGH
+const unsigned long Fan_on = 15000;
+unsigned long PIRstopt = 0; // hold stop time
+bool Hold = false;
+
+void setup() {
+  pinMode(mtrEble,OUTPUT);
+  pinMode(mtrIn3,OUTPUT);
+  pinMode(mtrIn4,OUTPUT);
+  pinMode(PIRsig,INPUT);
+  pinMode(ledGrn,OUTPUT);
+  pinMode(ledRed,OUTPUT);
+
+  FanOff();
+  Serial.begin(9600);
+}
+
+//default starting point - OFF
+void FanOff() { 
+  analogWrite(mtrEble,0);
+  digitalWrite(mtrIn3,LOW);
+  digitalWrite(mtrIn4,LOW);
+  digitalWrite(ledRed,HIGH);
+  digitalWrite(ledGrn,LOW);
+
+  Hold = false;
+  PIRstopt = 0;
+}
+//ADC calculation
+float readTemp() {
+  int read = analogRead(tmpPin);
+  float volts = read *(5.0 / 1023.0);
+  return (volts - 0.5)*100.0;
+}
+void loop() {
+  bool motion = digitalRead(PIRsig);
+  float ftemp = readTemp();
+
+  Serial.print("Motion: "); 
+  Serial.println(motion ? "POSITIVE" : "NEGATIVE");
+  Serial.print("Temp:");
+  Serial.print(ftemp); 
+  Serial.println(" C");
+
+  if (motion) {
+    Hold = false;
+    PIRstopt = 0;
+     runFan(ftemp);
+  } 
+    
+  else {
+    if (!Hold) {
+      Hold = true;
+      PIRstopt = millis();
+      Serial.println("Motion lost,15s hold started");
+    }
+
+    if (millis() - PIRstopt >= Fan_on) {
+      FanOff();
+      Serial.println("Hold complete,fan OFF");
+    } }
+ delay(500);
+}
+void runFan(float t) {
+  int speed;
+
+  if(t < 10.0) {
+    FanOff();           
+    return;
+  }
+  else if(t < 25.0) {
+    speed = SPEED_L;
+  }
+  else if(t < 30.0) {
+    speed = SPEED_M;
+  }
+  else{
+    speed = SPEED_H;
+  }
+
+  digitalWrite(mtrIn3, HIGH);
+  digitalWrite(mtrIn4, LOW);
+  analogWrite(mtrEble, speed);
+  digitalWrite(ledGrn, HIGH);
+  digitalWrite(ledRed, LOW);
+  Serial.print("Fan ON PWM: "); 
+  Serial.println(speed);
+} 
